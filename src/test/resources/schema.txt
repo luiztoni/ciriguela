@@ -1,0 +1,751 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.0
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost:3306
+-- Generation Time: Dec 29, 2022 at 12:42 PM
+-- Server version: 10.4.25-MariaDB
+-- PHP Version: 8.0.23
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `ciriguela`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin`
+--
+
+CREATE TABLE `admin` (
+  `id` int(11) NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `enabled` bit(1) NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`id`, `email`, `enabled`, `password`) VALUES
+(1, 'admin@admin.com', b'1', '$2a$10$5ECZDGvOCU1VMktdCfqQiu3zNdD7k3GIU0eFuWFsRaiW6rWhUINnW');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin_seq`
+--
+
+CREATE TABLE `admin_seq` (
+  `next_not_cached_value` bigint(21) NOT NULL,
+  `minimum_value` bigint(21) NOT NULL,
+  `maximum_value` bigint(21) NOT NULL,
+  `start_value` bigint(21) NOT NULL COMMENT 'start value when sequences is created or value if RESTART is used',
+  `increment` bigint(21) NOT NULL COMMENT 'increment value',
+  `cache_size` bigint(21) UNSIGNED NOT NULL,
+  `cycle_option` tinyint(1) UNSIGNED NOT NULL COMMENT '0 if no cycles are allowed, 1 if the sequence should begin a new cycle when maximum_value is passed',
+  `cycle_count` bigint(21) NOT NULL COMMENT 'How many cycles have been done'
+) ENGINE=InnoDB;
+
+--
+-- Dumping data for table `admin_seq`
+--
+
+INSERT INTO `admin_seq` (`next_not_cached_value`, `minimum_value`, `maximum_value`, `start_value`, `increment`, `cache_size`, `cycle_option`, `cycle_count`) VALUES
+(50001, 1, 9223372036854775806, 1, 50, 1000, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `answer`
+--
+
+CREATE TABLE `answer` (
+  `id` bigint(20) NOT NULL,
+  `item` char(1) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `question_id` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `answer_seq`
+--
+
+CREATE TABLE `answer_seq` (
+  `next_not_cached_value` bigint(21) NOT NULL,
+  `minimum_value` bigint(21) NOT NULL,
+  `maximum_value` bigint(21) NOT NULL,
+  `start_value` bigint(21) NOT NULL COMMENT 'start value when sequences is created or value if RESTART is used',
+  `increment` bigint(21) NOT NULL COMMENT 'increment value',
+  `cache_size` bigint(21) UNSIGNED NOT NULL,
+  `cycle_option` tinyint(1) UNSIGNED NOT NULL COMMENT '0 if no cycles are allowed, 1 if the sequence should begin a new cycle when maximum_value is passed',
+  `cycle_count` bigint(21) NOT NULL COMMENT 'How many cycles have been done'
+) ENGINE=InnoDB;
+
+--
+-- Dumping data for table `answer_seq`
+--
+
+INSERT INTO `answer_seq` (`next_not_cached_value`, `minimum_value`, `maximum_value`, `start_value`, `increment`, `cache_size`, `cycle_option`, `cycle_count`) VALUES
+(1, 1, 9223372036854775806, 1, 50, 1000, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `attendance`
+--
+
+CREATE TABLE `attendance` (
+  `id` bigint(20) NOT NULL,
+  `text` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `upvote` int(11) NOT NULL,
+  `professor_id` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `attendance_seq`
+--
+
+CREATE TABLE `attendance_seq` (
+  `next_not_cached_value` bigint(21) NOT NULL,
+  `minimum_value` bigint(21) NOT NULL,
+  `maximum_value` bigint(21) NOT NULL,
+  `start_value` bigint(21) NOT NULL COMMENT 'start value when sequences is created or value if RESTART is used',
+  `increment` bigint(21) NOT NULL COMMENT 'increment value',
+  `cache_size` bigint(21) UNSIGNED NOT NULL,
+  `cycle_option` tinyint(1) UNSIGNED NOT NULL COMMENT '0 if no cycles are allowed, 1 if the sequence should begin a new cycle when maximum_value is passed',
+  `cycle_count` bigint(21) NOT NULL COMMENT 'How many cycles have been done'
+) ENGINE=InnoDB;
+
+--
+-- Dumping data for table `attendance_seq`
+--
+
+INSERT INTO `attendance_seq` (`next_not_cached_value`, `minimum_value`, `maximum_value`, `start_value`, `increment`, `cache_size`, `cycle_option`, `cycle_count`) VALUES
+(1, 1, 9223372036854775806, 1, 50, 1000, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `discipline`
+--
+
+CREATE TABLE `discipline` (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `discipline_seq`
+--
+
+CREATE TABLE `discipline_seq` (
+  `next_not_cached_value` bigint(21) NOT NULL,
+  `minimum_value` bigint(21) NOT NULL,
+  `maximum_value` bigint(21) NOT NULL,
+  `start_value` bigint(21) NOT NULL COMMENT 'start value when sequences is created or value if RESTART is used',
+  `increment` bigint(21) NOT NULL COMMENT 'increment value',
+  `cache_size` bigint(21) UNSIGNED NOT NULL,
+  `cycle_option` tinyint(1) UNSIGNED NOT NULL COMMENT '0 if no cycles are allowed, 1 if the sequence should begin a new cycle when maximum_value is passed',
+  `cycle_count` bigint(21) NOT NULL COMMENT 'How many cycles have been done'
+) ENGINE=InnoDB;
+
+--
+-- Dumping data for table `discipline_seq`
+--
+
+INSERT INTO `discipline_seq` (`next_not_cached_value`, `minimum_value`, `maximum_value`, `start_value`, `increment`, `cache_size`, `cycle_option`, `cycle_count`) VALUES
+(1, 1, 9223372036854775806, 1, 50, 1000, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `doubt`
+--
+
+CREATE TABLE `doubt` (
+  `id` bigint(20) NOT NULL,
+  `answer` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `content` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `date` datetime(6) DEFAULT NULL,
+  `open` bit(1) NOT NULL,
+  `upvote` int(11) NOT NULL,
+  `professor_id` bigint(20) NOT NULL,
+  `student_id` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `doubt_seq`
+--
+
+CREATE TABLE `doubt_seq` (
+  `next_not_cached_value` bigint(21) NOT NULL,
+  `minimum_value` bigint(21) NOT NULL,
+  `maximum_value` bigint(21) NOT NULL,
+  `start_value` bigint(21) NOT NULL COMMENT 'start value when sequences is created or value if RESTART is used',
+  `increment` bigint(21) NOT NULL COMMENT 'increment value',
+  `cache_size` bigint(21) UNSIGNED NOT NULL,
+  `cycle_option` tinyint(1) UNSIGNED NOT NULL COMMENT '0 if no cycles are allowed, 1 if the sequence should begin a new cycle when maximum_value is passed',
+  `cycle_count` bigint(21) NOT NULL COMMENT 'How many cycles have been done'
+) ENGINE=InnoDB;
+
+--
+-- Dumping data for table `doubt_seq`
+--
+
+INSERT INTO `doubt_seq` (`next_not_cached_value`, `minimum_value`, `maximum_value`, `start_value`, `increment`, `cache_size`, `cycle_option`, `cycle_count`) VALUES
+(1, 1, 9223372036854775806, 1, 50, 1000, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `lesson`
+--
+
+CREATE TABLE `lesson` (
+  `id` bigint(20) NOT NULL,
+  `module` int(11) NOT NULL,
+  `discipline_id` bigint(20) NOT NULL,
+  `professor_id` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `lesson_seq`
+--
+
+CREATE TABLE `lesson_seq` (
+  `next_not_cached_value` bigint(21) NOT NULL,
+  `minimum_value` bigint(21) NOT NULL,
+  `maximum_value` bigint(21) NOT NULL,
+  `start_value` bigint(21) NOT NULL COMMENT 'start value when sequences is created or value if RESTART is used',
+  `increment` bigint(21) NOT NULL COMMENT 'increment value',
+  `cache_size` bigint(21) UNSIGNED NOT NULL,
+  `cycle_option` tinyint(1) UNSIGNED NOT NULL COMMENT '0 if no cycles are allowed, 1 if the sequence should begin a new cycle when maximum_value is passed',
+  `cycle_count` bigint(21) NOT NULL COMMENT 'How many cycles have been done'
+) ENGINE=InnoDB;
+
+--
+-- Dumping data for table `lesson_seq`
+--
+
+INSERT INTO `lesson_seq` (`next_not_cached_value`, `minimum_value`, `maximum_value`, `start_value`, `increment`, `cache_size`, `cycle_option`, `cycle_count`) VALUES
+(1, 1, 9223372036854775806, 1, 50, 1000, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `option`
+--
+
+CREATE TABLE `option` (
+  `id` bigint(20) NOT NULL,
+  `item` char(1) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `text` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `question_id` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `option_seq`
+--
+
+CREATE TABLE `option_seq` (
+  `next_not_cached_value` bigint(21) NOT NULL,
+  `minimum_value` bigint(21) NOT NULL,
+  `maximum_value` bigint(21) NOT NULL,
+  `start_value` bigint(21) NOT NULL COMMENT 'start value when sequences is created or value if RESTART is used',
+  `increment` bigint(21) NOT NULL COMMENT 'increment value',
+  `cache_size` bigint(21) UNSIGNED NOT NULL,
+  `cycle_option` tinyint(1) UNSIGNED NOT NULL COMMENT '0 if no cycles are allowed, 1 if the sequence should begin a new cycle when maximum_value is passed',
+  `cycle_count` bigint(21) NOT NULL COMMENT 'How many cycles have been done'
+) ENGINE=InnoDB;
+
+--
+-- Dumping data for table `option_seq`
+--
+
+INSERT INTO `option_seq` (`next_not_cached_value`, `minimum_value`, `maximum_value`, `start_value`, `increment`, `cache_size`, `cycle_option`, `cycle_count`) VALUES
+(1, 1, 9223372036854775806, 1, 50, 1000, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `professor`
+--
+
+CREATE TABLE `professor` (
+  `id` bigint(20) NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `enabled` bit(1) NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `professor_roles`
+--
+
+CREATE TABLE `professor_roles` (
+  `professors_id` bigint(20) NOT NULL,
+  `roles_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `professor_seq`
+--
+
+CREATE TABLE `professor_seq` (
+  `next_not_cached_value` bigint(21) NOT NULL,
+  `minimum_value` bigint(21) NOT NULL,
+  `maximum_value` bigint(21) NOT NULL,
+  `start_value` bigint(21) NOT NULL COMMENT 'start value when sequences is created or value if RESTART is used',
+  `increment` bigint(21) NOT NULL COMMENT 'increment value',
+  `cache_size` bigint(21) UNSIGNED NOT NULL,
+  `cycle_option` tinyint(1) UNSIGNED NOT NULL COMMENT '0 if no cycles are allowed, 1 if the sequence should begin a new cycle when maximum_value is passed',
+  `cycle_count` bigint(21) NOT NULL COMMENT 'How many cycles have been done'
+) ENGINE=InnoDB;
+
+--
+-- Dumping data for table `professor_seq`
+--
+
+INSERT INTO `professor_seq` (`next_not_cached_value`, `minimum_value`, `maximum_value`, `start_value`, `increment`, `cache_size`, `cycle_option`, `cycle_count`) VALUES
+(1, 1, 9223372036854775806, 1, 50, 1000, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `question`
+--
+
+CREATE TABLE `question` (
+  `id` bigint(20) NOT NULL,
+  `answer` char(1) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `text` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `quiz_id` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `question_seq`
+--
+
+CREATE TABLE `question_seq` (
+  `next_not_cached_value` bigint(21) NOT NULL,
+  `minimum_value` bigint(21) NOT NULL,
+  `maximum_value` bigint(21) NOT NULL,
+  `start_value` bigint(21) NOT NULL COMMENT 'start value when sequences is created or value if RESTART is used',
+  `increment` bigint(21) NOT NULL COMMENT 'increment value',
+  `cache_size` bigint(21) UNSIGNED NOT NULL,
+  `cycle_option` tinyint(1) UNSIGNED NOT NULL COMMENT '0 if no cycles are allowed, 1 if the sequence should begin a new cycle when maximum_value is passed',
+  `cycle_count` bigint(21) NOT NULL COMMENT 'How many cycles have been done'
+) ENGINE=InnoDB;
+
+--
+-- Dumping data for table `question_seq`
+--
+
+INSERT INTO `question_seq` (`next_not_cached_value`, `minimum_value`, `maximum_value`, `start_value`, `increment`, `cache_size`, `cycle_option`, `cycle_count`) VALUES
+(1, 1, 9223372036854775806, 1, 50, 1000, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `quiz`
+--
+
+CREATE TABLE `quiz` (
+  `id` bigint(20) NOT NULL,
+  `date` datetime(6) DEFAULT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `lesson_id` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `quiz_seq`
+--
+
+CREATE TABLE `quiz_seq` (
+  `next_not_cached_value` bigint(21) NOT NULL,
+  `minimum_value` bigint(21) NOT NULL,
+  `maximum_value` bigint(21) NOT NULL,
+  `start_value` bigint(21) NOT NULL COMMENT 'start value when sequences is created or value if RESTART is used',
+  `increment` bigint(21) NOT NULL COMMENT 'increment value',
+  `cache_size` bigint(21) UNSIGNED NOT NULL,
+  `cycle_option` tinyint(1) UNSIGNED NOT NULL COMMENT '0 if no cycles are allowed, 1 if the sequence should begin a new cycle when maximum_value is passed',
+  `cycle_count` bigint(21) NOT NULL COMMENT 'How many cycles have been done'
+) ENGINE=InnoDB;
+
+--
+-- Dumping data for table `quiz_seq`
+--
+
+INSERT INTO `quiz_seq` (`next_not_cached_value`, `minimum_value`, `maximum_value`, `start_value`, `increment`, `cache_size`, `cycle_option`, `cycle_count`) VALUES
+(1, 1, 9223372036854775806, 1, 50, 1000, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `role`
+--
+
+CREATE TABLE `role` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `role`
+--
+
+INSERT INTO `role` (`id`, `name`) VALUES
+(1, 'ROLE_ADMIN'),
+(2, 'ROLE_PROFESSOR'),
+(3, 'ROLE_STUDENT');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `role_seq`
+--
+
+CREATE TABLE `role_seq` (
+  `next_not_cached_value` bigint(21) NOT NULL,
+  `minimum_value` bigint(21) NOT NULL,
+  `maximum_value` bigint(21) NOT NULL,
+  `start_value` bigint(21) NOT NULL COMMENT 'start value when sequences is created or value if RESTART is used',
+  `increment` bigint(21) NOT NULL COMMENT 'increment value',
+  `cache_size` bigint(21) UNSIGNED NOT NULL,
+  `cycle_option` tinyint(1) UNSIGNED NOT NULL COMMENT '0 if no cycles are allowed, 1 if the sequence should begin a new cycle when maximum_value is passed',
+  `cycle_count` bigint(21) NOT NULL COMMENT 'How many cycles have been done'
+) ENGINE=InnoDB;
+
+--
+-- Dumping data for table `role_seq`
+--
+
+INSERT INTO `role_seq` (`next_not_cached_value`, `minimum_value`, `maximum_value`, `start_value`, `increment`, `cache_size`, `cycle_option`, `cycle_count`) VALUES
+(50001, 1, 9223372036854775806, 1, 50, 1000, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `schedule`
+--
+
+CREATE TABLE `schedule` (
+  `id` bigint(20) NOT NULL,
+  `day` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `local` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `moment` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `lesson_id` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `schedule_seq`
+--
+
+CREATE TABLE `schedule_seq` (
+  `next_not_cached_value` bigint(21) NOT NULL,
+  `minimum_value` bigint(21) NOT NULL,
+  `maximum_value` bigint(21) NOT NULL,
+  `start_value` bigint(21) NOT NULL COMMENT 'start value when sequences is created or value if RESTART is used',
+  `increment` bigint(21) NOT NULL COMMENT 'increment value',
+  `cache_size` bigint(21) UNSIGNED NOT NULL,
+  `cycle_option` tinyint(1) UNSIGNED NOT NULL COMMENT '0 if no cycles are allowed, 1 if the sequence should begin a new cycle when maximum_value is passed',
+  `cycle_count` bigint(21) NOT NULL COMMENT 'How many cycles have been done'
+) ENGINE=InnoDB;
+
+--
+-- Dumping data for table `schedule_seq`
+--
+
+INSERT INTO `schedule_seq` (`next_not_cached_value`, `minimum_value`, `maximum_value`, `start_value`, `increment`, `cache_size`, `cycle_option`, `cycle_count`) VALUES
+(1, 1, 9223372036854775806, 1, 50, 1000, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student`
+--
+
+CREATE TABLE `student` (
+  `id` bigint(20) NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `enabled` bit(1) NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student_lesson`
+--
+
+CREATE TABLE `student_lesson` (
+  `student_id` bigint(20) NOT NULL,
+  `lesson_id` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student_roles`
+--
+
+CREATE TABLE `student_roles` (
+  `students_id` bigint(20) NOT NULL,
+  `roles_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student_seq`
+--
+
+CREATE TABLE `student_seq` (
+  `next_not_cached_value` bigint(21) NOT NULL,
+  `minimum_value` bigint(21) NOT NULL,
+  `maximum_value` bigint(21) NOT NULL,
+  `start_value` bigint(21) NOT NULL COMMENT 'start value when sequences is created or value if RESTART is used',
+  `increment` bigint(21) NOT NULL COMMENT 'increment value',
+  `cache_size` bigint(21) UNSIGNED NOT NULL,
+  `cycle_option` tinyint(1) UNSIGNED NOT NULL COMMENT '0 if no cycles are allowed, 1 if the sequence should begin a new cycle when maximum_value is passed',
+  `cycle_count` bigint(21) NOT NULL COMMENT 'How many cycles have been done'
+) ENGINE=InnoDB;
+
+--
+-- Dumping data for table `student_seq`
+--
+
+INSERT INTO `student_seq` (`next_not_cached_value`, `minimum_value`, `maximum_value`, `start_value`, `increment`, `cache_size`, `cycle_option`, `cycle_count`) VALUES
+(1, 1, 9223372036854775806, 1, 50, 1000, 0, 0);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `UK_c0r9atamxvbhjjvy5j8da1kam` (`email`);
+
+--
+-- Indexes for table `answer`
+--
+ALTER TABLE `answer`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK8frr4bcabmmeyyu60qt7iiblo` (`question_id`);
+
+--
+-- Indexes for table `attendance`
+--
+ALTER TABLE `attendance`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FKctw60x9fnswqugthowjqnh346` (`professor_id`);
+
+--
+-- Indexes for table `discipline`
+--
+ALTER TABLE `discipline`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `doubt`
+--
+ALTER TABLE `doubt`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FKbcqptsis1gx48wp6nph00ej0w` (`professor_id`),
+  ADD KEY `FK3t4nln5k17mynfxfu9p4mrfm3` (`student_id`);
+
+--
+-- Indexes for table `lesson`
+--
+ALTER TABLE `lesson`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FKb63aphj5so62o2tpu6idva52x` (`discipline_id`),
+  ADD KEY `FKabdp0i1e1dx7y2jvlcmf0ydrn` (`professor_id`);
+
+--
+-- Indexes for table `option`
+--
+ALTER TABLE `option`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FKgtlhwmagte7l2ssfsgw47x9ka` (`question_id`);
+
+--
+-- Indexes for table `professor`
+--
+ALTER TABLE `professor`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `UK_qjm28ojevoom770jyieljec3e` (`email`);
+
+--
+-- Indexes for table `professor_roles`
+--
+ALTER TABLE `professor_roles`
+  ADD KEY `FK9u68sub2glal1ccoa4tqabebf` (`roles_id`),
+  ADD KEY `FKdfx4bdlrvcbdsb387cyjwrhjv` (`professors_id`);
+
+--
+-- Indexes for table `question`
+--
+ALTER TABLE `question`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FKb0yh0c1qaxfwlcnwo9dms2txf` (`quiz_id`);
+
+--
+-- Indexes for table `quiz`
+--
+ALTER TABLE `quiz`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FKi10d7n4lf738sm3mon21aubik` (`lesson_id`);
+
+--
+-- Indexes for table `role`
+--
+ALTER TABLE `role`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `schedule`
+--
+ALTER TABLE `schedule`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FKedcogv21uc4t5mfbtd09rujhj` (`lesson_id`);
+
+--
+-- Indexes for table `student`
+--
+ALTER TABLE `student`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `UK_fe0i52si7ybu0wjedj6motiim` (`email`);
+
+--
+-- Indexes for table `student_lesson`
+--
+ALTER TABLE `student_lesson`
+  ADD PRIMARY KEY (`student_id`,`lesson_id`),
+  ADD KEY `FKa64mwri6gq3ai7jwih91gsmf7` (`lesson_id`);
+
+--
+-- Indexes for table `student_roles`
+--
+ALTER TABLE `student_roles`
+  ADD KEY `FKoedpbus6vxieo6358sqi3beex` (`roles_id`),
+  ADD KEY `FKjjbcx5ccxk7hhd48k718xh24k` (`students_id`);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `answer`
+--
+ALTER TABLE `answer`
+  ADD CONSTRAINT `FK8frr4bcabmmeyyu60qt7iiblo` FOREIGN KEY (`question_id`) REFERENCES `question` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `attendance`
+--
+ALTER TABLE `attendance`
+  ADD CONSTRAINT `FKctw60x9fnswqugthowjqnh346` FOREIGN KEY (`professor_id`) REFERENCES `professor` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `doubt`
+--
+ALTER TABLE `doubt`
+  ADD CONSTRAINT `FK3t4nln5k17mynfxfu9p4mrfm3` FOREIGN KEY (`student_id`) REFERENCES `student` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FKbcqptsis1gx48wp6nph00ej0w` FOREIGN KEY (`professor_id`) REFERENCES `professor` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `lesson`
+--
+ALTER TABLE `lesson`
+  ADD CONSTRAINT `FKabdp0i1e1dx7y2jvlcmf0ydrn` FOREIGN KEY (`professor_id`) REFERENCES `professor` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FKb63aphj5so62o2tpu6idva52x` FOREIGN KEY (`discipline_id`) REFERENCES `discipline` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `option`
+--
+ALTER TABLE `option`
+  ADD CONSTRAINT `FKgtlhwmagte7l2ssfsgw47x9ka` FOREIGN KEY (`question_id`) REFERENCES `question` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `professor_roles`
+--
+ALTER TABLE `professor_roles`
+  ADD CONSTRAINT `FK9u68sub2glal1ccoa4tqabebf` FOREIGN KEY (`roles_id`) REFERENCES `role` (`id`),
+  ADD CONSTRAINT `FKdfx4bdlrvcbdsb387cyjwrhjv` FOREIGN KEY (`professors_id`) REFERENCES `professor` (`id`);
+
+--
+-- Constraints for table `question`
+--
+ALTER TABLE `question`
+  ADD CONSTRAINT `FKb0yh0c1qaxfwlcnwo9dms2txf` FOREIGN KEY (`quiz_id`) REFERENCES `quiz` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `quiz`
+--
+ALTER TABLE `quiz`
+  ADD CONSTRAINT `FKi10d7n4lf738sm3mon21aubik` FOREIGN KEY (`lesson_id`) REFERENCES `lesson` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `schedule`
+--
+ALTER TABLE `schedule`
+  ADD CONSTRAINT `FKedcogv21uc4t5mfbtd09rujhj` FOREIGN KEY (`lesson_id`) REFERENCES `lesson` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `student_lesson`
+--
+ALTER TABLE `student_lesson`
+  ADD CONSTRAINT `FK2nmxs05vgk43xy1cko182p72p` FOREIGN KEY (`student_id`) REFERENCES `student` (`id`),
+  ADD CONSTRAINT `FKa64mwri6gq3ai7jwih91gsmf7` FOREIGN KEY (`lesson_id`) REFERENCES `lesson` (`id`);
+
+--
+-- Constraints for table `student_roles`
+--
+ALTER TABLE `student_roles`
+  ADD CONSTRAINT `FKjjbcx5ccxk7hhd48k718xh24k` FOREIGN KEY (`students_id`) REFERENCES `student` (`id`),
+  ADD CONSTRAINT `FKoedpbus6vxieo6358sqi3beex` FOREIGN KEY (`roles_id`) REFERENCES `role` (`id`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
