@@ -27,7 +27,7 @@ public class StudentController {
     public ResponseEntity<?> show(@PathVariable long id) {
         Student student = service.show(id);
         if (student == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(student, HttpStatus.OK);
     }

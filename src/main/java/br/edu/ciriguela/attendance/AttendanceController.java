@@ -18,7 +18,7 @@ public class AttendanceController {
     public ResponseEntity<?> show(@PathVariable long id) {
         return repository.findById(id)
                 .map(attendance -> ResponseEntity.ok(attendance))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                .orElse(new ResponseEntity<>(HttpStatus.NO_CONTENT));
     }
 
     @GetMapping("/professor/{id}")

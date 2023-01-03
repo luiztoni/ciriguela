@@ -34,7 +34,7 @@ public class AnswerController {
     public ResponseEntity<?> show(@PathVariable long id) {
         return repository.findById(id)
                 .map(answer -> ResponseEntity.ok(answer))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                .orElse(new ResponseEntity<>(HttpStatus.NO_CONTENT));
     }
 
     @GetMapping("/question/{id}")

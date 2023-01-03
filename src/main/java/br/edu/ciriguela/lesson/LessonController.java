@@ -51,7 +51,7 @@ public class LessonController {
     public ResponseEntity<?> show(@PathVariable long id) {
         return repository.findById(id)
                 .map(lesson -> ResponseEntity.ok(lesson))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                .orElse(new ResponseEntity<>(HttpStatus.NO_CONTENT));
     }
 
     @PostMapping

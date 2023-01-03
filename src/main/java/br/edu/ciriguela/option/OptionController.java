@@ -27,7 +27,7 @@ public class OptionController {
     public ResponseEntity<?> show(@PathVariable long id) {
         return repository.findById(id)
                 .map(option -> ResponseEntity.ok(option))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                .orElse(new ResponseEntity<>(HttpStatus.NO_CONTENT));
     }
 
     @PostMapping

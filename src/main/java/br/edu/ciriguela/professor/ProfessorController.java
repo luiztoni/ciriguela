@@ -29,7 +29,7 @@ public class ProfessorController {
     public ResponseEntity<?> show(@PathVariable long id) {
         Professor professor = service.show(id);
         if (professor == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(professor, HttpStatus.OK);
     }

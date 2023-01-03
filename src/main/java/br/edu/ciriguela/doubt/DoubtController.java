@@ -36,7 +36,7 @@ public class DoubtController {
     public ResponseEntity<?> show(@PathVariable long id) {
         return repository.findById(id)
                 .map(doubt -> ResponseEntity.ok(doubt))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                .orElse(new ResponseEntity<>(HttpStatus.NO_CONTENT));
     }
 
     @GetMapping("/professor/{id}")
