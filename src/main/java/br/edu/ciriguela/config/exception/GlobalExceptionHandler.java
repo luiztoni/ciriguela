@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import br.edu.ciriguela.config.locale.ErrorMessage;
 import br.edu.ciriguela.config.locale.MessageProperties;
 
+import java.time.LocalDateTime;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 	@Autowired
@@ -18,10 +20,10 @@ public class GlobalExceptionHandler {
 	private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
 	@ExceptionHandler(BusinessException.class)
-	public ResponseEntity<?> handleFeignException(BusinessException exception) {
+	public ResponseEntity<?> handleBusinessException(BusinessException exception) {
 		String error = String.format(messageProperties.get(ErrorMessage.INTERNAL_SERVER_ERROR), exception.getMessage());
-		LOGGER.info("BusinessException: [{}]", exception.getMessage());
-		return ResponseEntity.internalServerError().body(error);
+		LOGGER.error("BusinessException: [{}]", exception.getMessage());
+		return ResponseEntity.internalServerError().body(new CustomErrorResponse(LocalDateTime.now(), 500, error));
 	}
 
 }
