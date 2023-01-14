@@ -1,14 +1,17 @@
-name: Build
+name: Build and Push to Registry
 
 env:
   MAVEN_ARGS: -B -C -V -ntp -Dhttp.keepAlive=false -e
+  IMAGE_NAME: ciriguela-api
+  TAGS: latest ${{ github.sha }}
 
 on:
   workflow_dispatch:
   push:
     branches:
       - main
-  pull_request:
+  pull_request_target:
+    types: [ assigned, reopened, labeled, edited ]
 
 permissions:
   contents: read
@@ -36,3 +39,28 @@ jobs:
         with:
           name: Package
           path: staging
+
+      - name: Build Container Image
+        uses: redhat-actions/buildah-build@v2
+        with:
+          image: ${{ env.IMAGE_NAME }}
+          tags: ${{ emv.TAGS }}
+          containerfiles: |
+            ./Dockerfile
+
+      # Push Image
+      - name: Push To Registry
+        id: push-to-registry
+        uses: redhat-actions/push-to-registry@v2
+        if: github.event_name == 'push'
+        with:
+          image: ${{ steps.build_image.outputs.image }}
+          tags: ${{ steps.build_image.outputs.tags }}
+          registry: docker.io/${{ secrets.REGISTRY_USERNAME }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - name: Echo outputs
+        run: |
+          echo "Image pushed"
+          echo "${{ toJSON(steps.push-to-registry.outputs) }}"
