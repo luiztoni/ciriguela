@@ -34,11 +34,10 @@ jobs:
           cache: 'maven'
       - name: Build Project
         run: ./mvnw ${MAVEN_ARGS} clean install
-      - run: mkdir staging && cp target/*.jar staging
       - uses: actions/upload-artifact@v3
         with:
-          name: Package
-          path: staging
+          name: java-app
+          path: '${{ github.workspace }}/target/*.jar'
 
       - name: Build Container Image
         uses: redhat-actions/buildah-build@v2

@@ -1,0 +1,42 @@
+# Based in
+# https://docs.github.com/en/actions/deployment/deploying-to-your-cloud-provider/deploying-to-azure/deploying-java-to-azure-app-service.
+
+name: Deploy JAR app to Azure Web App
+env:
+  AZURE_WEBAPP_NAME: ${{ secrets.AZURE_WEBAPP_NAME }}  # set this to your application's name
+on:
+  schedule:
+    - cron: '0 0 * * *'  # every day at midnight
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+  jobs:
+    deploy:
+      permissions:
+        contents: none
+      runs-on: ubuntu-latest
+      environment:
+        name: 'dev'
+      steps:
+        - name: Download artifact from build job
+          uses: actions/download-artifact@v3
+          with:
+            name: java-app
+        - name: Deploy to Azure Web App
+          id: deploy-to-webapp
+          uses: azure/webapps-deploy@v2
+          with:
+            app-name: ${{ env.AZURE_WEBAPP_NAME }}
+            publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+            package: '*.jar'
+        # Perform a (very) basic integration test.
+        # This step is retried since the time to pull the image and start the pod can vary.
+        - name: Test project is running
+          id: test-project
+          uses: nick-invision/retry@v2.2.0
+          with:
+            timeout_seconds: 3
+            retry_wait_seconds: 10
+            max_attempts: 30
+            warning_on_retry: false
+            command: curl -sSfLi ${{ env.AZURE_WEBAPP_NAME }}.azurewebsites.net
