@@ -50,7 +50,7 @@ public class ProfessorServiceTest {
     }
 
 	@Test
-	void givenNewProfessorInDatabaseWhenStoreThenPersistInDatabase() {
+	void givenNewProfessorWhenStoreThenPersistInDatabase() {
 		Professor professor = new Professor();
 		professor.setEmail("email@email.com");
 		given(professorRepository.findByEmail(anyString())).willReturn(null);

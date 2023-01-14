@@ -56,8 +56,8 @@ public class IntegrationTest {
 		assertThat(getResponse.getBody()).isNotBlank();
 		ObjectMapper objectMapper = new ObjectMapper();
 		List<Discipline> disciplines = objectMapper.readValue(getResponse.getBody(), new TypeReference<List<Discipline>>(){});
-		assertEquals(disciplines.size(), 1);
-		assertEquals(disciplines.get(0).getName(), discipline.getName());
+		assertEquals(1, disciplines.size());
+		assertEquals(discipline.getName(), disciplines.get(0).getName());
 		assertNotNull(disciplines.get(0).getId());
 		assertThat(postResponse.getStatusCode().value()).isEqualTo(201);
 	}
