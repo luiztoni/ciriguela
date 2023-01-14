@@ -5,6 +5,7 @@ import br.edu.ciriguela.config.admin.AdminRepository;
 import br.edu.ciriguela.config.role.Role;
 import br.edu.ciriguela.config.role.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,6 +25,12 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+	@Value("${ciriguela.default.admin.email}")
+	private String email;
+
+	@Value("${ciriguela.default.admin.password}")
+	private String password;
+
     @Override
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
@@ -32,7 +39,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
         createNewRole("ROLE_ADMIN");
         createNewRole("ROLE_PROFESSOR");
         createNewRole("ROLE_STUDENT");
-        createNewAdmin("admin@admin.com", "password");
+        createNewAdmin(email, password);
         alreadySetup = true;
     }
 
