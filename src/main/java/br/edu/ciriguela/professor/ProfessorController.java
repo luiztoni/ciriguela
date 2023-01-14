@@ -35,19 +35,19 @@ public class ProfessorController {
     }
 
     @PostMapping
-    public ResponseEntity<?> store(@Valid @RequestBody Professor professor) {
+    public ResponseEntity<?> store(@RequestHeader(name = "admin-token") String adminToken, @Valid @RequestBody Professor professor) {
         service.store(professor);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping
-    public ResponseEntity<?> update(@RequestBody Professor professor) {
+    public ResponseEntity<?> update(@RequestHeader(name = "admin-token") String adminToken, @RequestBody Professor professor) {
         service.update(professor);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable int id) {
+    public ResponseEntity<?> delete(@RequestHeader(name = "admin-token") String adminToken, @PathVariable int id) {
         service.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
