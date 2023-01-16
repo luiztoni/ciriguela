@@ -43,7 +43,7 @@ jobs:
         uses: redhat-actions/buildah-build@v2
         with:
           image: ${{ env.IMAGE_NAME }}
-          tags: ${{ emv.TAGS }}
+          tags: ${{ env.TAGS }}
           containerfiles: |
             ./Dockerfile
 
