@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
@@ -33,7 +35,7 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity<?> store(@Valid @RequestBody Student student) {
+    public ResponseEntity<?> store(@Valid @RequestBody Student student, BindingResult bindingResult) {
         service.store(student);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -45,6 +47,7 @@ public class StudentController {
     }
 
     @DeleteMapping("/{id}")
+	@PreAuthorize("#id == authentication.principal.id or hasRole('ADMIN')")
     public ResponseEntity<?> delete(@PathVariable long id) {
         service.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);

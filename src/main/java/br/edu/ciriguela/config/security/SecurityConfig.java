@@ -14,7 +14,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
@@ -22,13 +24,12 @@ import org.springframework.security.web.authentication.Http403ForbiddenEntryPoin
 import br.edu.ciriguela.config.jwt.JwtAuthenticationFilter;
 import br.edu.ciriguela.config.jwt.JwtAuthorizationFilter;
 
+@EnableWebSecurity
+@EnableMethodSecurity(securedEnabled = true ,jsr250Enabled = true)
 @Configuration
 public class SecurityConfig implements ApplicationContextAware {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(SecurityConfig.class);
-
-	@Value("${ciriguela.disable.security}")
-	private boolean disableSecurity;
 
 	@Value("${spring.profiles.active}")
 	private String activeProfile;
