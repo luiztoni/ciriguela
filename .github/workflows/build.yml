@@ -2,7 +2,7 @@ name: Build and Push to Registry
 
 env:
   MAVEN_ARGS: -B -C -V -ntp -Dhttp.keepAlive=false -e
-  IMAGE_NAME: ciriguela-api
+  IMAGE_NAME: ciriguela
   TAGS: latest ${{ github.sha }}
 
 on:
