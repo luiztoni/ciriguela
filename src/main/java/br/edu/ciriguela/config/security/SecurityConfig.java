@@ -24,15 +24,11 @@ import org.springframework.security.web.authentication.Http403ForbiddenEntryPoin
 import br.edu.ciriguela.config.jwt.JwtAuthenticationFilter;
 import br.edu.ciriguela.config.jwt.JwtAuthorizationFilter;
 
-@EnableWebSecurity
-@EnableMethodSecurity(securedEnabled = true ,jsr250Enabled = true)
 @Configuration
+@EnableMethodSecurity(securedEnabled = true ,jsr250Enabled = true)
 public class SecurityConfig implements ApplicationContextAware {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(SecurityConfig.class);
-
-	@Value("${spring.profiles.active}")
-	private String activeProfile;
 
 	private ApplicationContext applicationContext;
 
@@ -50,7 +46,6 @@ public class SecurityConfig implements ApplicationContextAware {
 	@Bean
 	@Profile({"default", "dev"})
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		LOGGER.info("filterChain in profile [{}]. ", activeProfile);
 		http.authorizeHttpRequests(
 				(authz) -> authz
 					.requestMatchers(HttpMethod.GET, "/v3/api-docs", "/swagger-ui/*", "/js/**", "/css/**", "/img/**").permitAll()
@@ -70,7 +65,7 @@ public class SecurityConfig implements ApplicationContextAware {
 	@Bean
 	@Profile("test")
 	public SecurityFilterChain filterChainForTest(HttpSecurity http) throws Exception {
-		LOGGER.info("filterChainForTest in profile [{}]. ", activeProfile);
+		LOGGER.info("filterChainForTest in profile test. ");
 		http.authorizeHttpRequests(
 				(authz) -> authz.anyRequest().permitAll())
 			.csrf().disable()
