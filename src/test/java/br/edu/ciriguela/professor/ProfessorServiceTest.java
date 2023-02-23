@@ -1,5 +1,6 @@
 package br.edu.ciriguela.professor;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -12,6 +13,7 @@ import static org.mockito.Mockito.verify;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -37,15 +39,20 @@ public class ProfessorServiceTest {
     @MockBean
     private RoleRepository roleRepository;
     
+	private ArgumentCaptor<String> emailCaptor = ArgumentCaptor.forClass(String.class);
+
     @Test
 	void givenProfessorInDatabaseWhenStoreThenThrowsBusinessException() {
     	Professor professor = new Professor();
-		professor.setEmail("email@email.com");
+		String email = "email@email.com";
+		professor.setEmail(email);
     	given(professorRepository.findByEmail(anyString())).willReturn(professor);
     	Exception exception = assertThrows(BusinessException.class, () -> { service.store(professor); });
-    	verify(professorRepository, times(1)).findByEmail(anyString());
+    	verify(professorRepository, times(1)).findByEmail(emailCaptor.capture());
     	verify(professorRepository, times(0)).save(any(Professor.class));
     	assertNotNull(exception.getMessage());
+		String emailValue = emailCaptor.getValue();
+		assertEquals(email, emailValue);
     	then(exception.getMessage()).contains("User Already Exist!");    	
     }
 
