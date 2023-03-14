@@ -66,12 +66,12 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
                     .getBody();
 
             @SuppressWarnings("unchecked")
-            List<String> list = (List<String>) claims.get("roles");
+            List<Map<String, String>> list = (List<Map<String, String>>) claims.get("roles");
 
 
             List<GrantedAuthority> authorities;
             authorities = list.stream().map(item ->
-                    new SimpleGrantedAuthority(item)
+                    new SimpleGrantedAuthority(item.get("authority"))
             ).collect(Collectors.toList());
 
 

@@ -48,6 +48,7 @@ public class SecurityConfig implements ApplicationContextAware {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests(
 				(authz) -> authz
+					.requestMatchers(HttpMethod.POST, "/login").permitAll()
 					.requestMatchers(HttpMethod.GET, "/v3/api-docs", "/swagger-ui/*", "/js/**", "/css/**", "/img/**").permitAll()
 					.requestMatchers(HttpMethod.POST, PROFESSOR_URL).authenticated()
 					.requestMatchers(STUDENT_URL).hasAnyRole("ADMIN", "PROFESSOR")
