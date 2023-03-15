@@ -26,21 +26,27 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
           java-version: ${{ matrix.java }}
           distribution: 'temurin'
           cache: 'maven'
+
       - name: Build Project
         run: ./mvnw ${MAVEN_ARGS} clean install
-      - uses: actions/upload-artifact@v3
+
+      - name: Upload Jar
+        uses: actions/upload-artifact@v3
+        if: github.event_name == 'push'
         with:
-          name: java-app
+          name: ciriguela
           path: '${{ github.workspace }}/target/*.jar'
 
       - name: Build Container Image
         uses: redhat-actions/buildah-build@v2
+        if: github.event_name == 'push'
         with:
           image: ${{ env.IMAGE_NAME }}
           tags: ${{ env.TAGS }}
@@ -60,6 +66,7 @@ jobs:
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
       - name: Echo outputs
+        if: github.event_name == 'push'
         run: |
           echo "Image pushed"
           echo "${{ toJSON(steps.push-to-registry.outputs) }}"
