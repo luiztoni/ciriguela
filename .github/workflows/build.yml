@@ -105,4 +105,4 @@ jobs:
           retry_wait_seconds: 5
           max_attempts: 5
           warning_on_retry: false
-          command: curl -sSfLi ${{ env.AZURE_WEBAPP_NAME }}.azurewebsites.net
+          command: curl -sSfLi ${{ env.AZURE_WEBAPP_NAME }}.azurewebsites.net/v3/api-docs.ymal
