@@ -4,6 +4,7 @@ env:
   MAVEN_ARGS: -B -C -V -ntp -Dhttp.keepAlive=false -e
   IMAGE_NAME: ciriguela
   TAGS: latest ${{ github.sha }}
+  AZURE_WEBAPP_NAME: ciriguela
 
 on:
   workflow_dispatch:
