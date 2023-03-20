@@ -49,7 +49,7 @@ public class SecurityConfig implements ApplicationContextAware {
 		http.authorizeHttpRequests(
 				(authz) -> authz
 					.requestMatchers(HttpMethod.POST, "/login").permitAll()
-					.requestMatchers(HttpMethod.GET, "/v3/api-docs", "/v3/api-docs/**","/v3/api-docs.yaml", "/swagger-ui.html", "/swagger-ui/**", "/js/**", "/css/**", "/img/**").permitAll()
+					.requestMatchers(HttpMethod.GET, "/v3/api-docs", "/v3/api-docs/**","/v3/api-docs/swagger-config","/v3/api-docs.yaml", "/swagger-ui.html", "/swagger-ui/**", "/js/**", "/css/**", "/img/**").permitAll()
 					.requestMatchers(HttpMethod.POST, PROFESSOR_URL).authenticated()
 					.requestMatchers(STUDENT_URL).hasAnyRole("ADMIN", "PROFESSOR")
 					.anyRequest().authenticated())
