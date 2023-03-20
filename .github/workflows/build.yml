@@ -105,4 +105,4 @@ jobs:
           retry_wait_seconds: 10
           max_attempts: 8
           warning_on_retry: false
-          command: curl -sSfLi ${{ env.AZURE_WEBAPP_NAME }}.azurewebsites.net/v3/api-docs.ymal
+          command: curl -sSfLi ${{ env.AZURE_WEBAPP_NAME }}.azurewebsites.net/swagger-ui/index.html
