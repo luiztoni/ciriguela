@@ -98,7 +98,7 @@ jobs:
 
       - name: Test project is running
         id: test-project
-        uses: nick-invision/retry@v2.2.0
+        uses: nick-invision/retry@v2.8.3
         with:
           timeout_seconds: 3
           retry_wait_seconds: 10
