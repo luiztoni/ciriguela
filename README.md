@@ -14,9 +14,18 @@
 
  1. Gerenciar configurações no arquivo resources/application-dev.properties
  2. Iniciar a aplicação com: 
-   * *mvn spring-boot:run -Dspring-boot.run.profiles=dev* ou,
-   * *java -jar -Dspring.profiles.active=dev XXX.jar* ou,
-   * *docker run -it -p 8080:8080 -e "JAVA_OPTS=-Xmx128m" --network=db_network -e DB_CONNECTION=mariadb -e DB_USER=myuser -e DB_PASSWORD=mypassword --name ciriguela ciriguela:latest*
+ * Maven:
+```sh
+mvn spring-boot:run -Dspring-boot.run.profiles=dev
+```
+ * Java Jar:
+```sh
+java -jar -Dspring.profiles.active=dev ciriguela.jar
+```
+ * Docker ou Podman:
+```sh
+docker run -it -p 8080:8080 -e "JAVA_OPTS=-Xmx128m" --network=db_network -e DB_CONNECTION=mariadb -e DB_USER=myuser -e DB_PASSWORD=mypassword --name ciriguela ciriguela:latest
+```
  3. Acessar http://localhost:8080/swagger-ui/index.html para ver os endpoints
 
 
