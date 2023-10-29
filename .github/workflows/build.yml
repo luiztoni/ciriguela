@@ -90,7 +90,7 @@ jobs:
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         if: github.event_name == 'push'
-        uses: azure/webapps-deploy@v2
+        uses: azure/webapps-deploy@v3
         with:
           app-name: 'ciriguela'
           slot-name: 'production'
