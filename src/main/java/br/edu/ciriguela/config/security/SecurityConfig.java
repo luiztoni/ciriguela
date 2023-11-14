@@ -45,7 +45,6 @@ public class SecurityConfig implements ApplicationContextAware {
 	@Bean
 	@Profile({"default", "dev"})
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		//swagger uri: http://host:port/swagger-ui/index.html
 		http.authorizeHttpRequests(
 				(authz) -> authz
 					.requestMatchers(HttpMethod.POST, "/login").permitAll()
