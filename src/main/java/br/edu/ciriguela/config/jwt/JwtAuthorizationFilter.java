@@ -3,6 +3,7 @@ package br.edu.ciriguela.config.jwt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 
+import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -54,27 +55,20 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         String token = request.getHeader(HEADER_STRING);
         if (token != null) {
 
-            String user = Jwts.parser()
-                    .setSigningKey(SECRET.getBytes())
-                    .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
-                   .getBody()
-                    .getSubject();
-
-            Claims claims = Jwts.parser()
-                    .setSigningKey(SECRET.getBytes())
-                    .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
-                    .getBody();
+          	Claims claims = Jwts.parser()
+				.verifyWith(Keys.hmacShaKeyFor(SECRET.getBytes()))
+				.build()
+				.parseSignedClaims(token.replace(TOKEN_PREFIX, "")).getPayload();
+			String user =  claims.getSubject();
 
             @SuppressWarnings("unchecked")
-            List<Map<String, String>> list = (List<Map<String, String>>) claims.get("roles");
+            var list = (List<Map<String, String>>) claims.get("roles");
 
 
             List<GrantedAuthority> authorities;
             authorities = list.stream().map(item ->
                     new SimpleGrantedAuthority(item.get("authority"))
             ).collect(Collectors.toList());
-
-
 
             if (user != null) {
                 return new UsernamePasswordAuthenticationToken(user, null, authorities);

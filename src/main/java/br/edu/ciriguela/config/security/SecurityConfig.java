@@ -6,7 +6,6 @@ import static br.edu.ciriguela.config.jwt.SecurityConstants.STUDENT_URL;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
@@ -16,9 +15,9 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.ExceptionTranslationFilter;
 import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 
 import br.edu.ciriguela.config.jwt.JwtAuthenticationFilter;
@@ -46,6 +45,7 @@ public class SecurityConfig implements ApplicationContextAware {
 	@Bean
 	@Profile({"default", "dev"})
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		//swagger uri: http://host:port/swagger-ui/index.html
 		http.authorizeHttpRequests(
 				(authz) -> authz
 					.requestMatchers(HttpMethod.POST, "/login").permitAll()
@@ -53,13 +53,13 @@ public class SecurityConfig implements ApplicationContextAware {
 					.requestMatchers(HttpMethod.POST, PROFESSOR_URL).authenticated()
 					.requestMatchers(STUDENT_URL).hasAnyRole("ADMIN", "PROFESSOR")
 					.anyRequest().authenticated())
-			.csrf().disable()
-			.formLogin().disable()
-			.logout().disable()
+			.csrf(configurer -> configurer.disable())
+			.formLogin(configurer -> configurer.disable())
+			.logout(configurer -> configurer.disable())
 			.addFilter(new JwtAuthenticationFilter(authenticationManager, applicationContext))
 			.addFilter(new JwtAuthorizationFilter(authenticationManager))
-			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-			.and().exceptionHandling().authenticationEntryPoint(new Http403ForbiddenEntryPoint());
+			.addFilter(new ExceptionTranslationFilter(new Http403ForbiddenEntryPoint()))
+			.sessionManagement(configurer -> configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 		return http.build();
 	}
 
@@ -69,13 +69,13 @@ public class SecurityConfig implements ApplicationContextAware {
 		LOGGER.info("filterChainForTest in profile test. ");
 		http.authorizeHttpRequests(
 				(authz) -> authz.anyRequest().permitAll())
-			.csrf().disable()
-			.cors().disable()
-			.httpBasic().disable()
-			.formLogin().disable()
-			.logout().disable()
-			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-			.and().exceptionHandling().authenticationEntryPoint(new Http403ForbiddenEntryPoint());
+			.csrf(configurer -> configurer.disable())
+			.cors(configurer -> configurer.disable())
+			.httpBasic(configurer -> configurer.disable())
+			.formLogin(configurer -> configurer.disable())
+			.logout(configurer -> configurer.disable())
+			.addFilter(new ExceptionTranslationFilter(new Http403ForbiddenEntryPoint()))
+			.sessionManagement(configurer -> configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 		return http.build();
 	}
 }

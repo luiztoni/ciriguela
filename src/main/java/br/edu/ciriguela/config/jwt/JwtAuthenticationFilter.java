@@ -5,10 +5,9 @@ import br.edu.ciriguela.config.user.UserService;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 
+import io.jsonwebtoken.security.Keys;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,17 +68,14 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             HttpServletResponse response,
                                             FilterChain chain,
                                             Authentication auth) {
-
         org.springframework.security.core.userdetails.User user = ((org.springframework.security.core.userdetails.User) auth.getPrincipal());
-        Claims claims = Jwts.claims().setSubject(user.getUsername());
-        claims.put("roles", user.getAuthorities());
-
-        String token = Jwts.builder()
-                .setClaims(claims)
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .signWith(SignatureAlgorithm.HS512, SECRET.getBytes())
-                .compact();
-        response.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
+		String jws = Jwts.builder()
+			.subject(user.getUsername())
+			.expiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+			.issuedAt(new Date())
+			.signWith(Keys.hmacShaKeyFor(SECRET.getBytes()))
+			.claim("roles", user.getAuthorities()).compact();
+		response.addHeader(HEADER_STRING, TOKEN_PREFIX + jws);
     }
 }
 
