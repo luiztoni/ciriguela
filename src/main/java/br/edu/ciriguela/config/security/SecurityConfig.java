@@ -15,6 +15,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.*;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.ExceptionTranslationFilter;
@@ -52,9 +53,9 @@ public class SecurityConfig implements ApplicationContextAware {
 					.requestMatchers(HttpMethod.POST, PROFESSOR_URL).authenticated()
 					.requestMatchers(STUDENT_URL).hasAnyRole("ADMIN", "PROFESSOR")
 					.anyRequest().authenticated())
-			.csrf(configurer -> configurer.disable())
-			.formLogin(configurer -> configurer.disable())
-			.logout(configurer -> configurer.disable())
+			.csrf(CsrfConfigurer::disable)
+			.formLogin(FormLoginConfigurer::disable)
+			.logout(LogoutConfigurer::disable)
 			.addFilter(new JwtAuthenticationFilter(authenticationManager, applicationContext))
 			.addFilter(new JwtAuthorizationFilter(authenticationManager))
 			.addFilter(new ExceptionTranslationFilter(new Http403ForbiddenEntryPoint()))
@@ -68,11 +69,11 @@ public class SecurityConfig implements ApplicationContextAware {
 		LOGGER.info("filterChainForTest in profile test. ");
 		http.authorizeHttpRequests(
 				(authz) -> authz.anyRequest().permitAll())
-			.csrf(configurer -> configurer.disable())
-			.cors(configurer -> configurer.disable())
-			.httpBasic(configurer -> configurer.disable())
-			.formLogin(configurer -> configurer.disable())
-			.logout(configurer -> configurer.disable())
+			.cors(CorsConfigurer::disable)
+			.httpBasic(HttpBasicConfigurer::disable)
+			.csrf(CsrfConfigurer::disable)
+			.formLogin(FormLoginConfigurer::disable)
+			.logout(LogoutConfigurer::disable)
 			.addFilter(new ExceptionTranslationFilter(new Http403ForbiddenEntryPoint()))
 			.sessionManagement(configurer -> configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 		return http.build();

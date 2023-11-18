@@ -42,20 +42,19 @@ public class UserService implements UserDetailsService {
         }
         User user;
         Student student = studentRepository.findByEmail(email);
-        List<GrantedAuthority> authorities;
         if (student != null) {
-            authorities = student.getRoles().stream().map(role ->
+            var authorities = student.getRoles().stream().map(role ->
                     new SimpleGrantedAuthority(role.getName())
-            ).collect(Collectors.toList());
+            ).toList();
             user = new User(student.getEmail(), student.getPassword(), authorities);
         } else {
             Professor professor = professorRepository.findByEmail(email);
             if (professor == null) {
                 throw new UsernameNotFoundException("User not found with email : " + email);
             }
-            authorities = professor.getRoles().stream().map(role ->
+            var authorities = professor.getRoles().stream().map(role ->
                     new SimpleGrantedAuthority(role.getName())
-            ).collect(Collectors.toList());
+            ).toList();
             user = new User(professor.getEmail(), professor.getPassword(), authorities);
         }
         return user;
