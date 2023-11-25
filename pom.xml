@@ -27,6 +27,14 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <exclusions>
+                <!-- Hibernate 6.3.x for Spring Data JPA 3.2 -->
+                <!-- https://hibernate.atlassian.net/browse/HHH-17454 -->
+                <exclusion>
+                    <groupId>org.hibernate.orm</groupId>
+                    <artifactId>hibernate-core</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -79,6 +87,13 @@
             <artifactId>mariadb-java-client</artifactId>
             <version>3.3.0</version> <!--$NO-MVN-MAN-VER$-->
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core -->
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>6.4.0.Final</version>
+        </dependency>
+
     </dependencies>
     <build>
         <pluginManagement>
