@@ -39,7 +39,7 @@ jobs:
         run: ./mvnw ${MAVEN_ARGS} clean install
 
       - name: Upload Jar
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: github.event_name == 'push'
         with:
           name: ciriguela
