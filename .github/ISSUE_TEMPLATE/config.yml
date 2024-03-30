@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Ciriguela Docs
+    url: https://github.com/luiztoni/ciriguela/docs
+    about: Please see documentation.
+  - name: Ciriguela Issues
+    url: https://github.com/luiztoni/ciriguela/issues
+    about: Please see issues here.

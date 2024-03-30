@@ -1,0 +1,42 @@
+name: Build and Push
+
+env:
+  MAVEN_ARGS: -B -C -V -ntp -Dhttp.keepAlive=false -e
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request_target:
+    types: [ assigned, reopened, labeled, edited ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Java ${{ matrix.java }} Maven
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java: [21]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ matrix.java }}
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Build Project
+        run: ./mvnw ${MAVEN_ARGS} clean install
+
+      - name: Upload Jar
+        uses: actions/upload-artifact@v4
+        if: github.event_name == 'push'
+        with:
+          name: ciriguela
+          path: '${{ github.workspace }}/target/*.jar'

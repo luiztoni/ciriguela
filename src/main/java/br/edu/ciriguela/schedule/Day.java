@@ -1,0 +1,12 @@
+package br.edu.ciriguela.schedule;
+
+public enum Day {
+    MON,
+    TUE,
+    WED,
+    THU,
+    FRI,
+    SAT,
+    SUN
+}
+

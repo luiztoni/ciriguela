@@ -1,0 +1,32 @@
+name: Task 🔧
+description: To-Do tasks to be performed
+labels: [kind/task]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### Suggesting a new task 🔧
+        🔍  Before opening a new task please search existing issues at https://github.com/luiztoni/ciriguela
+        🤔  To make it easier for us to help you, please include as much useful information as possible.
+
+        Useful Links:
+
+          - 📝  Documentation: https://github.com/luiztoni/ciriguela/docs
+
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Is your task related to a problem? Please describe
+      description: A clear and concise description of what the problem is.
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Describe the solution you'd like
+      description: A clear and concise description of what you want to happen.
+    validations:
+      required: false
