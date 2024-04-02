@@ -98,7 +98,7 @@
             <plugin>
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>jib-maven-plugin</artifactId>
-                <version>3.4.1</version>
+                <version>3.4.2</version>
                 <!-- run mvn compile jib:build -->
                 <!-- push to registry:
                 Add tag configuration>to>image, with docker.io/PROJECT/IMAGE -->
