@@ -15,6 +15,7 @@ permissions:
 
 jobs:
   build:
+    environment: dev
     name: Java ${{ matrix.java }} Maven
     runs-on: ubuntu-latest
     strategy:
@@ -33,6 +34,9 @@ jobs:
 
       - name: Build Project
         run: ./mvnw ${MAVEN_ARGS} clean install
+
+      - name: Build Container
+        run: ./mvnw compile jib:build -Djib.to.image=${{ IMAGE_REGISTRY }} -Djib.to.auth.username=${{ USER_REGISTRY }} -Djib.to.auth.password=${{ PASSWORD_REGISTRY }}
 
       - name: Upload Jar
         uses: actions/upload-artifact@v4
