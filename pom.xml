@@ -99,6 +99,29 @@
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>jib-maven-plugin</artifactId>
                 <version>3.4.2</version>
+                <configuration>
+                    <from>
+                        <image>eclipse-temurin:22-jre-alpine</image>
+                    </from>
+                    <to>
+                        <image>docker.io/luiztoni/ciriguela</image>
+                        <tags>
+                            <tag>latest</tag>
+                        </tags>
+                    </to>
+                <container>
+                    <environment>
+                        <JVM_ARGS>-Xmx256m</JVM_ARGS>
+                        <PG_HOST>localhost</PG_HOST>
+                        <PG_PORT>5432</PG_PORT>
+                        <PG_DB>pgdb</PG_DB>
+                        <PG_USER>postgres</PG_USER>
+                        <PG_PWD>pgroot</PG_PWD>
+                        <ADMIN_EMAIL>admin@admin.com</ADMIN_EMAIL>
+                        <ADMIN_PASSWORD>password</ADMIN_PASSWORD>
+                    </environment>
+                </container>
+                </configuration>
                 <!-- run mvn compile jib:build -->
                 <!-- push to registry:
                 Add tag configuration>to>image, with docker.io/PROJECT/IMAGE -->

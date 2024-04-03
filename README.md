@@ -25,11 +25,13 @@ java -jar -Dspring.profiles.active=dev ciriguela-1.0-SNAPSHOT.jar
  * Docker ou Podman:
 ```sh
 docker run -it -p 8080:8080  -e "JVM_ARGS=-Xmx512m" \
--e "PG_URL=pgsql" \
+-e "PG_HOST=pgsql" \
 -e "PG_USER=postgres" \
 -e "PG_PASSWORD=postgres" \
 -e "PG_PORT=5432" \
 -e "PG_DB=ciriguela" \
+-e "ADMIN_EMAIL=admin@admin.com" \
+-e "ADMIN_PASSWORD=password" \
 --network=cg_network \
 --name ciriguela ciriguela:latest
 ```

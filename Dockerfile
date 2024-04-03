@@ -9,4 +9,6 @@ ENV PG_USER="postgres"
 ENV PG_PWD="pgroot"
 ENV PG_PORT="5432"
 ENV PG_DB="pgdb"
+ENV ADMIN_EMAIL="admin@admin.com"
+ENV ADMIN_PASSWORD="password"
 ENTRYPOINT ["sh", "-c", "java ${JVM_ARGS} -jar /opt/app/app.jar"]
