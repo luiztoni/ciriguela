@@ -36,7 +36,7 @@ jobs:
         run: ./mvnw ${MAVEN_ARGS} clean install
 
       - name: Build Container
-        run: ./mvnw compile jib:build -Djib.to.image=${{ IMAGE_REGISTRY }} -Djib.to.auth.username=${{ USER_REGISTRY }} -Djib.to.auth.password=${{ PASSWORD_REGISTRY }}
+        run: ./mvnw compile jib:build -Djib.to.image=${{ secrets.IMAGE_REGISTRY }} -Djib.to.auth.username=${{ secrets.USER_REGISTRY }} -Djib.to.auth.password=${{ secrets.PASSWORD_REGISTRY }}
 
       - name: Upload Jar
         uses: actions/upload-artifact@v4
