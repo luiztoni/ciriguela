@@ -12,7 +12,7 @@ services:
     ports:
       - "5432:5432"
     networks:
-      - cg_network
+      - appnt
     restart: on-failure
   app:
     image: docker.io/luiztoni/ciriguela:latest
@@ -22,16 +22,16 @@ services:
     depends_on:
       - pgsql
     environment:
-      PG_HOST: pgsql
-      PG_USER: "postgres"
-      PG_PWD: "pgroot"
-      PG_PORT: 5432
-      PG_DB: pgdb
+      DB_HOST: pgsql
+      DB_USER: "postgres"
+      DB_PASSWORD: "pgroot"
+      DB_PORT: 5432
+      DB_NAME: pgdb
     networks:
-      - cg_network
+      - appnt
     ports:
       - "8080:8080"
 
 networks:
-  cg_network:
+  appnt:
     driver: bridge

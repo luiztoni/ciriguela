@@ -48,6 +48,7 @@ public class SecurityConfig implements ApplicationContextAware {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests(
 				(authz) -> authz
+					.requestMatchers(HttpMethod.GET,"/actuator/**").hasAuthority("ROLE_ADMIN")
 					.requestMatchers(HttpMethod.POST, "/login").permitAll()
 					.requestMatchers(HttpMethod.GET, "/v3/api-docs", "/v3/api-docs/**","/v3/api-docs/swagger-config","/v3/api-docs.yaml", "/swagger-ui.html", "/swagger-ui/**", "/js/**", "/css/**", "/img/**").permitAll()
 					.requestMatchers(HttpMethod.POST, PROFESSOR_URL).authenticated()

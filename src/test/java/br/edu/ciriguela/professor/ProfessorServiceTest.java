@@ -17,11 +17,11 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import br.edu.ciriguela.config.exception.BusinessException;
 import br.edu.ciriguela.config.role.RoleRepository;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 @DataJpaTest
 @ExtendWith(MockitoExtension.class)
@@ -30,13 +30,13 @@ public class ProfessorServiceTest {
 	@InjectMocks
 	private ProfessorService service;
 	
-    @MockBean
+    @MockitoBean
     private ProfessorRepository professorRepository;
 
-    @MockBean
+    @MockitoBean
     private BCryptPasswordEncoder passwordEncoder;
 
-    @MockBean
+    @MockitoBean
     private RoleRepository roleRepository;
     
 	private ArgumentCaptor<String> emailCaptor = ArgumentCaptor.forClass(String.class);

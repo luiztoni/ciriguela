@@ -8,7 +8,7 @@
  📖 Dependências de build:
 
  * Distro OpenJDK 21 (Sugestão: Eclipse Temurin) 
- * Apache Maven 3.9+
+ * Apache Maven 3.5+
 
 ## Executando o backend
 
@@ -22,17 +22,17 @@ mvn spring-boot:run -Dspring-boot.run.profiles=dev
 ```sh
 java -jar -Dspring.profiles.active=dev ciriguela-1.0-SNAPSHOT.jar
 ```
- * Docker ou Podman:
+ * Docker:
 ```sh
-docker run -it -p 8080:8080  -e "JVM_ARGS=-Xmx512m" \
--e "PG_HOST=pgsql" \
--e "PG_USER=postgres" \
--e "PG_PASSWORD=postgres" \
--e "PG_PORT=5432" \
--e "PG_DB=ciriguela" \
--e "ADMIN_EMAIL=admin@admin.com" \
--e "ADMIN_PASSWORD=password" \
---network=cg_network \
+docker run --rm -d -it -p 8080:8080 -e "PG_HOST=pgsql" \
+-e "DB_USER=postgres" \
+-e "DB_PASSWORD=postgres" \
+-e "DB_PORT=5432" \
+-e "DB_NAME=ciriguela" \
+-e "ADM_LOGIN=admin@admin.com" \
+-e "ADM_PASSWORD=password" \
+-m 2048M -e JAVA_TOOL_OPTIONS="$(cat app.vmoptions)" --cpus="1.5" \
+--network=appnt \
 --name ciriguela ciriguela:latest
 ```
  3. Acessar http://localhost:8080/swagger-ui/index.html para ver os endpoints

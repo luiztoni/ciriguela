@@ -38,6 +38,10 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
@@ -110,6 +114,14 @@
                         </tags>
                     </to>
                 <container>
+                    <creationTime>${maven.build.timestamp}</creationTime>
+                    <mainClass>br.edu.ciriguela.CiriguelaApplication</mainClass>
+                    <args>
+                        <arg>--spring.config.location=/demo/location/application.yml</arg>
+                    </args>
+                    <ports>
+                        <port>8080</port>
+                    </ports>
                     <environment>
                         <JVM_ARGS>-Xmx256m</JVM_ARGS>
                         <PG_HOST>localhost</PG_HOST>
