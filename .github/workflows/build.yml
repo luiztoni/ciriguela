@@ -39,7 +39,7 @@ jobs:
         run: ./mvnw compile jib:build -Djib.to.image=${{ secrets.IMAGE_REGISTRY }} -Djib.to.auth.username=${{ secrets.USER_REGISTRY }} -Djib.to.auth.password=${{ secrets.PASSWORD_REGISTRY }}
 
       - name: Upload Jar
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         if: github.event_name == 'push'
         with:
           name: ciriguela
